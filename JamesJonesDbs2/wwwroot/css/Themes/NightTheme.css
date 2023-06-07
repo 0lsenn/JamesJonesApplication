@@ -1,0 +1,12 @@
+﻿body {
+    --colour-1: #103b4e; /*Primary Colour the darker blue*/
+    --colour-2: #0b4f6c; /*the the darker blue*/
+
+    --colour-3: #07467f; /*Primary Colour the blue*/
+    --colour-4: #145c9e; /*Secondary Colour the blue*/
+
+    --colour-5: #89a5de; /*Primary Colour the sky blue*/
+    --colour-6: #b8cdf8; /*Secondary Colour the sky blue*/
+
+    --filter-1: invert(85%) /*setlogo to white*/
+}

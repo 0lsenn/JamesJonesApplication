@@ -1,0 +1,43 @@
+﻿@model JamesJonesDbs2.Models.SamsWareHouseItem
+
+<hr />
+<div class="row modalRowMargin">
+    <div class="col-md-4 modalBodyWidth" >
+        <form asp-action="EditShopItem" class="modalBodyMargin">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="SamsWareHouseItemId" />
+            <div class="form-group">
+                <label asp-for="ItemName" class="control-label InvertFilter1"></label>
+                <input asp-for="ItemName" class="form-control" minlength="4" maxlength="32" required />
+                <span asp-validation-for="ItemName" class="text-danger"></span>
+            </div><br />
+
+            <div class="form-group">
+                <label asp-for="Unit" class="control-label InvertFilter1"></label>
+                <input asp-for="Unit" class="form-control" minlength="1" maxlength="16" required />
+                <span asp-validation-for="Unit" class="text-danger"></span>
+            </div><br />
+
+            <div class="form-group">
+                <label asp-for="UnitPrice" class="control-label InvertFilter1"></label>
+                <input asp-for="UnitPrice" class="form-control" min="1" max="1000" required />
+                <span asp-validation-for="UnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group btnEditMargin">
+                <br />
+                <button type="submit" value="Save" id="btnSaveEdit" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <br />
+    <a asp-action="Index" class="btn btn-primary modalbtnBack">Back to Products List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

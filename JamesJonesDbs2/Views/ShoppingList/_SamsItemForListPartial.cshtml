@@ -1,0 +1,67 @@
+﻿@model IEnumerable<JamesJonesDbs2.Models.SamsWareHouseItem>
+@{
+    double Total = 0;
+}
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemName)
+                </th>
+
+                <th>
+                    Quantity
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.Unit)
+                </th>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.UnitPrice)
+                </th>
+
+                <th/>
+            </tr>
+        </thead>
+
+        <tbody>
+        @foreach (var item in Model)
+        {
+            double subTotal = 0;
+
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ItemName)
+                </td>
+                    
+                <td>
+                     @Html.DisplayFor(modelItem => item.ShoppingListItems.Where(c => c.SamsWareHouseItemId == item.SamsWareHouseItemId).FirstOrDefault().Quantity)
+                    
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Unit)
+                </td>
+
+                <td>
+                    $@Html.DisplayFor(modelItem => item.UnitPrice)
+                    @{
+                        subTotal = item.UnitPrice * item.ShoppingListItems.Where(c => c.SamsWareHouseItemId == item.SamsWareHouseItemId).FirstOrDefault().Quantity;
+                    }
+                </td>
+
+                <td class="d-flex justify-content-around">
+                    
+                    <input type="button" class="btn btn-danger align-content-end" value="Remove" />
+                    
+                </td>
+            </tr>
+            Total = Total + subTotal;
+        }
+            <tr style="min-width:20vw">
+                <th>Total: $@(Total)</th>
+            </tr>
+        </tbody>
+    </table>

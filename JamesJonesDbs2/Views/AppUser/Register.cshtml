@@ -1,0 +1,43 @@
+﻿@model JamesJonesDbs2.Models.DataTransferObject.RegisterAppUserDTO
+
+@{
+    ViewData["Title"] = "Register";
+}
+
+<h1 class="text-center InvertFilter1">AppUser Register</h1>
+
+<hr />
+<div class="row justify-content-center">
+    <div class="col-md-4">
+        <form asp-action="Register">
+            <img class="InvertFilter1 addPadder makeSpinLogo text-center" src="~/css/SVG/SamsWareHouseLogo.svg" width="300" style="margin-top: 5px;" />
+            <br /><br />
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="EmailAddress" class="control-label InvertFilter1"></label>
+                <input asp-for="EmailAddress" class="form-control" />
+                <span asp-validation-for="EmailAddress" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group ">
+                <label asp-for="Password" class="control-label InvertFilter1"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+        <br />
+        <a asp-controller="AppUser" asp-action="Login" class="btn btn-primary" m-4>Back to Login Page</a>
+    </div>
+
+</div>
+
+<br />
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

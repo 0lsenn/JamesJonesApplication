@@ -1,0 +1,61 @@
+﻿@model IEnumerable<JamesJonesDbs2.Models.ShoppingList>
+
+<div style="min-height: 65vh">
+
+    <div class="text-center m-2 mb-4">
+        <h2 class="InvertFilter1">My Shopping Lists</h2>
+    </div>
+
+    <div class="card shadow py-2">
+        <div class="row m-0 justify-content-evenly">
+            <div class="col-sm-2 p-1">
+
+                <button type="button" id="btnDeleteList" class="btn btn-danger" value="Remove">Remove</button>
+                   
+
+            </div>
+            <div class="col-sm-6 p-1" id="selectContainer">
+                <select class="form-select" disabled>
+                    <option>Loading.....</option>
+                </select>
+            </div>
+            <div class="col-sm-2 p-1">
+                <input type="button" class="btn btn-primary w-100" value="New" />
+            </div>
+        </div>
+    </div>
+
+    <div class="p-2">
+        <div class="card shadow" id="shopItemContainer" style="min-height: 40vh">
+        </div>
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="createListModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title">Create List</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+
+                <form id="createListForm">
+                    <input type="text" name="listName" class="form-control" minlength="4" maxlength="32" required/>
+                    <br/>
+                    <input type="submit" value="Add List" class="btn btn-success" />
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.AntiForgeryToken();
+
+@section Scripts {
+    <script src="~/js/ShoppingListScript" asp-append-version="true"></script>
+}

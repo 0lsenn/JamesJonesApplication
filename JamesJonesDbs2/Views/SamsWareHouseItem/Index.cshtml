@@ -1,0 +1,110 @@
+﻿@model IEnumerable<JamesJonesDbs2.Models.SamsWareHouseItem>
+﻿@using System.Security.Claims;
+@{
+    ViewData["Title"] = "ShopItemView";
+}
+<h1 class="InvertFilter1">Sam's Warehouse Items</h1>
+<br />
+<div>
+    <div>
+        @if (Context.User.IsInRole("Admin"))
+        {
+            <input type="button" class="btn btn-primary" id="btnShowCreateModal" value="Create New item" />
+        }
+    </div>
+</div>
+
+
+<div class="card-container" id="ItemTableContainer">
+    
+    @foreach (var samsWareHouseItem in Model)
+    {
+        <div class="single-card card shadow">
+            <h2>@samsWareHouseItem.ItemName</h2>
+                <h3>@samsWareHouseItem.Unit</h3>
+                <h3>$@samsWareHouseItem.UnitPrice</h3>
+                <br>
+
+
+            <input type="button" id="btnAddItemToList" class="btn btn-primary" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Add to Shopping List" />
+            <br>
+            @if (Context.User.IsInRole("Admin"))
+            {
+                       
+                <input type="button" id="btnEdit" class="btn btn-success" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Edit"/>
+                <br>
+                
+                <button type="button" id="btnRemove" class="btn btn-danger" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Remove">Remove</button>
+                <br/>
+            }
+        </div>
+        }
+</div>
+
+<div class="modal fade" id="WareHouseItemModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content limitModalSize centerModalPopUp">
+      <div class="modal-header">
+        <h5 class="modal-title" id="ModalTitle"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body" id="ModalBody">
+        <p>Modal body text goes here.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="addShopItemToListModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h5 class="modal-title">Add To Shopping List:</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="modalBody">
+
+                <form id="addShopItemToListForm">
+                    <div class="col justify-content-evenly">
+                        <div class="col-6" id="ddlContainer">
+                            <select class="form-select" disabled>
+                                <option>Loading....</option>
+                            </select>
+                            
+                        </div>
+                        <div class="col">
+                            <label>Quantity: </label>
+                            <input type="number" name="ItemQuantity" class="form-control" value="1" min="1" max="64" required />
+
+                        </div>
+                        
+                        <br />
+                        <div class="col-3">
+                            
+                            <button type="submit" id="btnAddItemToShoppingList" class="btn btn-success" >
+                                Add
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@Html.AntiForgeryToken();
+
+
+@section Scripts 
+{
+
+    <script src="~/js/SamsWareHouseItemsScript.js" asp-append-version="true"></script>
+
+@*    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }*@
+}
