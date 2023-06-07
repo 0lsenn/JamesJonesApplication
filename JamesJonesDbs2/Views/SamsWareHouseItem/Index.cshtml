@@ -26,15 +26,15 @@
                 <br>
 
 
-            <input type="button" id="btnAddItemToList" class="btn btn-primary" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Add to Shopping List" />
+            <button type="button" id="btnAddShopItem" class="btn btn-primary" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Add To Shopping List">Add To Shopping List</button>
             <br>
             @if (Context.User.IsInRole("Admin"))
             {
-                       
-                <input type="button" id="btnEdit" class="btn btn-success" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Edit"/>
+
+                <button type="button" id="btnShowEditModal" class="btn btn-success" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Edit">Edit</button>
                 <br>
-                
-                <button type="button" id="btnRemove" class="btn btn-danger" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Remove">Remove</button>
+
+                <button type="button" id="btnRemoveShopItem@(@samsWareHouseItem.SamsWareHouseItemId)" class="btn btn-danger" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Remove">Remove</button>
                 <br/>
             }
         </div>
@@ -104,7 +104,5 @@
 
     <script src="~/js/SamsWareHouseItemsScript.js" asp-append-version="true"></script>
 
-@*    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }*@
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

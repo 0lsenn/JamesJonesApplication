@@ -1,18 +1,19 @@
 ﻿//Instanciate stuff once window loads
 window.addEventListener('load', (e) => {
 
-    //Adds event listeners on buttons: Add to Shopping List, Edit, Remove
-    //AddButtonEventListeners();
-
-    //Adds event listener to submit the form of adding an item to list
+    //Adds Event Listeners to the buttons
+    AddButtonEventListeners();
+    
+    //Adds event listener to submit the form of adding an item to list (WORKS)
     document.getElementById('addShopItemToListForm').addEventListener('submit', async (e) => {
         handleAddShopItemToList(e);
     })
 
-    //Spawns the create modal
+    //Spawns the create modal (WORKS)
     document.getElementById('btnShowCreateModal').addEventListener('click', async (e) => {
         await ShowCreateItemModal(e);
     });
+
 })
 
 //Instanciates the DDL modal 
@@ -46,6 +47,7 @@ async function handleAddShopItemToList(e) {
     //Assign Id
     let shopItemId = sessionStorage.getItem('selectedItemId');
     let listID = e.target['shoppingList'].selectedOptions[0].value
+    console.log("WareHouseID: " + shopItemId + " List ID: " + listID)
 
     //null check
     if (listID == 0) {
@@ -61,6 +63,7 @@ async function handleAddShopItemToList(e) {
         Quantity: e.target["ItemQuantity"].value
     }
 
+    console.log("reached Here");
 
     //Get Controller method and send the JSON configured object
     let result = await advFetch('/ShoppingList/AddItemToShoppingList', {
@@ -170,8 +173,6 @@ async function ShowCreateItemModal() {
     //form reference
     let formReference = document.querySelector('form[action="/SamsWareHouseItem/CreateNewShopItem"]');
 
-    $.validator.unobtrusive.parse(formReference);
-
     //check form on console
     console.log(formReference);
 
@@ -241,6 +242,9 @@ async function handleCreateSubmit(e) {
  */
 async function DeleteConfirm(id) {
 
+    //i meaaaaannnn....
+    id++;
+
     // Confirm Dialog
     if (confirm("Are you sure you want to delete WareHouse Item with Id: " + id)) {
 
@@ -250,7 +254,7 @@ async function DeleteConfirm(id) {
         }
 
         //Set Spinner
-        let button = document.getElementById('btnRemoveShopItem(' + id + ')');
+        let button = document.getElementById('btnRemoveShopItem'+id);
         button.setAttribute('disabled', 'disabled')
         button.innerHTML = `
             <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -268,6 +272,7 @@ async function DeleteConfirm(id) {
         //reload page
         location.reload();
     }
+}
 
     async function AddButtonEventListeners() {
 
@@ -282,17 +287,19 @@ async function DeleteConfirm(id) {
         AddIterate.forEach((value, index) => {
             value.addEventListener('click', (e) => {
                 addToShoppingList(value.dataset.itemId);
+                console.log(value.dataset.itemId);
             })
         });
 
         //Edit Buttons
-        let EditButtons = objectContainer.querySelectorAll('input[value="Edit Item"]');
+        let EditButtons = objectContainer.querySelectorAll('button[value="Edit Item"]');
 
         let EditButtonIterate = Array.from(EditButtons);
 
         EditButtonIterate.forEach((value, index) => {
             value.addEventListener('click', (e) => {
                 ShowEditModal(value.dataset.itemId);
+                console.log(value.dataset.itemId);
             })
         });
 
@@ -303,10 +310,14 @@ async function DeleteConfirm(id) {
         let DeleteButtonIterate = Array.from(DeleteButtons);
 
         DeleteButtonIterate.forEach((value, index) => {
+            console.log(value);
+            console.log(index);
+            console.log("the value of this object is: " + value + " with index: " + index);
             value.addEventListener('click', (e) => {
-                DeleteConfirm(value.dataset.itemId);
+                DeleteConfirm(index);
+                console.log(index);
             })
         });
 
 
-}
+    }

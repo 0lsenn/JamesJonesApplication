@@ -12,7 +12,6 @@
 
                 <button type="button" id="btnDeleteList" class="btn btn-danger" value="Remove">Remove</button>
                    
-
             </div>
             <div class="col-sm-6 p-1" id="selectContainer">
                 <select class="form-select" disabled>
@@ -20,7 +19,7 @@
                 </select>
             </div>
             <div class="col-sm-2 p-1">
-                <input type="button" class="btn btn-primary w-100" value="New" />
+                <button type="button" id="btnShowAddListModal" class="btn btn-primary w-100" value="New">New</button>
             </div>
         </div>
     </div>
@@ -57,5 +56,6 @@
 @Html.AntiForgeryToken();
 
 @section Scripts {
+    
     <script src="~/js/ShoppingListScript" asp-append-version="true"></script>
 }

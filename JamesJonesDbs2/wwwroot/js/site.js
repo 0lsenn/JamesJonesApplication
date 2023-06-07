@@ -1,4 +1,10 @@
-﻿
+﻿//Event Listener to the Switch theme button
+//Instanciate stuff once window loads
+window.addEventListener('load', (e) => {
+    document.getElementById('btnSwitchTheme').addEventListener('click', async (e) => {
+        await switchTheme(e);
+    });
+})
 /**
  * Switch Theme method to switch the theme between light and night mode
  * */
@@ -27,7 +33,7 @@ async function switchTheme() {
         //setting the theme to night
         localStorage.setItem('theme', 'LightTheme')
 
-        let result = await fetch('/api/Settings/SetTheme', {
+        let result = await advFetch('/api/Settings/SetTheme', {
             method: 'POST',
             headers: {
                 "content-type": "application/json"

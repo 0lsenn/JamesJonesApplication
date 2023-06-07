@@ -179,7 +179,7 @@ namespace JamesJonesDbs2.Controllers
         /// </summary>
         /// <param name="samsWareHouseItemId"></param>
         /// <returns></returns>
-        [Authorize(Roles = "Customer")]
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> RemoveShopItem(int id)

@@ -6,7 +6,37 @@ window.addEventListener("load", async (e) => {
     document.getElementById("createListForm").addEventListener('submit', async (e) => {
         await handleCreateList(e);
     })
+    //Spawns the create List modal (WORKS)
+    document.getElementById('btnShowAddListModal').addEventListener('click', async (e) => {
+        await ShowCreateListModdal(e)
+    });
+
 });
+
+//Create a Shopping List modal - or call the modal basically
+async function ShowCreateListModal() {
+    //Call controller partial view
+    let response = await advFetch('/ShoppingList/AddNewShoppingList');
+
+    let htmlResponse = await response.text();
+    //Set it to modal template
+    document.getElementById('ModalBody').innerHTML = htmlResponse;
+    document.getElementById('ModalTitle').innerHTML = 'Create New List';
+
+    //form reference
+    let formReference = document.querySelector('form[action="/SamsWareHouseItem/CreateNewShopItem"]');
+
+    //check form on console
+    console.log(formReference);
+
+    //Button event listener when user submits, call another method
+    formReference.addEventListener('submit', (e) => { handleCreateList(e) });
+
+    //show the modal
+    $('#createListModal').modal('show');
+
+}//end spawn modal
+
 /**
  * Updates The Drop Down List
  */
@@ -43,6 +73,7 @@ async function handleDDLChange(e) {
     //refresh
     document.getElementById('shopItemContainer').innerHTML = htmlResult
 }
+
 
 /**
  * Function that handles creation of a list
