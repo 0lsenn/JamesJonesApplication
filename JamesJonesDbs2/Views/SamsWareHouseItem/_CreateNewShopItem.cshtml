@@ -8,7 +8,7 @@
 
             <div class="form-group">
                 <label asp-for="ItemName" class="control-label"></label>
-                <input asp-for="ItemName" class="form-control" maxlength="32" required/>
+                <input asp-for="ItemName" class="form-control" minlength="4" maxlength="32" required />
                 <span asp-validation-for="ItemName" class="text-danger"></span>
             </div>
 
@@ -16,7 +16,7 @@
 
             <div class="form-group">
                 <label asp-for="Unit" class="control-label"></label>
-                <input asp-for="Unit" class="form-control" maxlength="32" required/>
+                <input asp-for="Unit" class="form-control" minlength="1" maxlength="32" required/>
                 <span asp-validation-for="Unit" class="text-danger"></span>
             </div>
 
@@ -40,7 +40,7 @@
 </div>
 <br/>
 <div style="text-align: center">
-    <a asp-action="Index" class="btn btn-primary" >Back to List</a>
+    <a asp-action="Index" class="btn btn-primary modalbtnBack">Back to List</a>
 </div>
 
 @section Scripts {

@@ -1,6 +1,6 @@
 ﻿//Instanciate stuff once window loads
 window.addEventListener('load', (e) => {
-
+    console.log("Is this even going Through?")
     //Adds Event Listeners to the buttons
     AddButtonEventListeners();
     
@@ -9,11 +9,14 @@ window.addEventListener('load', (e) => {
         handleAddShopItemToList(e);
     })
 
-    //Spawns the create modal (WORKS)
+    //Spawns the create modal (WORKS - but Breaks when not Admin)
     document.getElementById('btnShowCreateModal').addEventListener('click', async (e) => {
+        console.log("Event Fired - Spawn Create Item Modal");
         await ShowCreateItemModal(e);
     });
 
+    
+    
 })
 
 //Instanciates the DDL modal 
@@ -55,6 +58,7 @@ async function handleAddShopItemToList(e) {
         button.innerHTML = 'Add';
         return;
     }
+
 
     //Assign Values
     let shoppingListItem = {
@@ -118,6 +122,24 @@ async function ShowEditModal(id) {
 async function HandleEditSubmit(e, id) {
     e.preventDefault();
 
+    
+    //Taget is itself
+    let form = e.target;
+
+    //null check
+    let nullOrWhiteSpaceCheckedOne = e.target["ItemName"].value;
+    let ItemName = nullOrWhiteSpaceCheckedOne.trim();
+    //null indicate
+    if (ItemName.length <= 4 && ItemName.length < 32 || ItemName == "") {
+        return alert("Please Dont Leave the Item Name empty.")
+    }
+    //Unit Null Check
+    let nullOrWhiteSpaceCheckedTwo = e.target["Unit"].value;
+    let Unit = nullOrWhiteSpaceCheckedTwo.trim();
+    if (Unit.length <= 1 && Unit.length < 32 || Unit == "") {
+        return alert("Please Dont Leave the Item Unit empty.")
+    }
+
     //Spinner
     let button = document.getElementById('btnSaveEdit');
     button.setAttribute('disabled', 'disabled')
@@ -125,9 +147,6 @@ async function HandleEditSubmit(e, id) {
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Editing...
                 `;
-
-    //Taget is itself
-    let form = e.target;
 
     //Set Data Values
     let itemData = {
@@ -195,6 +214,21 @@ async function handleCreateSubmit(e) {
         return;
     }
 
+    
+    //null check
+    let nullOrWhiteSpaceCheckedOne = e.target["ItemName"].value;
+    let ItemName = nullOrWhiteSpaceCheckedOne.trim();
+    //null indicate
+    if (ItemName.length <= 4 && ItemName.length < 32 || ItemName == "") {
+        return alert("Please Dont Leave the Item Name empty.")
+    }
+    //Unit Null Check
+    let nullOrWhiteSpaceCheckedTwo = e.target["Unit"].value;
+    let Unit = nullOrWhiteSpaceCheckedTwo.trim();
+    if (Unit.length <= 1 && Unit.length < 32 || Unit == "") {
+        return alert("Please Dont Leave the Item Unit empty.")
+    }
+
     //Spinner show
     let button = document.getElementById('btnCreateItem');
     button.setAttribute('disabled', 'disabled')
@@ -202,7 +236,6 @@ async function handleCreateSubmit(e) {
                         <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                         Adding...
                         `;
-
 
     //Assign data based from form
     let WareHouseItemData = {
@@ -242,9 +275,7 @@ async function handleCreateSubmit(e) {
  */
 async function DeleteConfirm(id) {
 
-    //i meaaaaannnn....
-    id++;
-
+    
     // Confirm Dialog
     if (confirm("Are you sure you want to delete WareHouse Item with Id: " + id)) {
 
@@ -280,26 +311,22 @@ async function DeleteConfirm(id) {
         let objectContainer = document.getElementById('ItemTableContainer');
 
         //Add Buttons
-        let AddToShoppingListButtons = objectContainer.querySelectorAll('input[value="Add To Shopping List"]');
+        let AddToShoppingListButtons = objectContainer.querySelectorAll('button[value="AddToShoppingList"]');
 
-        let AddIterate = Array.from(AddToShoppingListButtons);
-
-        AddIterate.forEach((value, index) => {
+        AddToShoppingListButtons.forEach((value) => {
             value.addEventListener('click', (e) => {
-                addToShoppingList(value.dataset.itemId);
-                console.log(value.dataset.itemId);
+                console.log(e.target.dataset.itemid);
+                addToShoppingList(e.target.dataset.itemid);
             })
         });
 
         //Edit Buttons
-        let EditButtons = objectContainer.querySelectorAll('button[value="Edit Item"]');
+        let EditButtons = objectContainer.querySelectorAll('button[value="EditItem"]');
 
-        let EditButtonIterate = Array.from(EditButtons);
-
-        EditButtonIterate.forEach((value, index) => {
+        EditButtons.forEach((value, index) => {
             value.addEventListener('click', (e) => {
-                ShowEditModal(value.dataset.itemId);
-                console.log(value.dataset.itemId);
+                ShowEditModal(e.target.dataset.itemid);
+                console.log(e.target.value.dataset.itemid);
             })
         });
 
@@ -307,15 +334,13 @@ async function DeleteConfirm(id) {
 
         let DeleteButtons = objectContainer.querySelectorAll('button[value="Remove"]');
 
-        let DeleteButtonIterate = Array.from(DeleteButtons);
-
-        DeleteButtonIterate.forEach((value, index) => {
+        DeleteButtons.forEach((value, index) => {
             console.log(value);
             console.log(index);
             console.log("the value of this object is: " + value + " with index: " + index);
             value.addEventListener('click', (e) => {
-                DeleteConfirm(index);
-                console.log(index);
+                DeleteConfirm(e.target.dataset.itemid);
+                console.log(e.target.dataset.itemid);
             })
         });
 

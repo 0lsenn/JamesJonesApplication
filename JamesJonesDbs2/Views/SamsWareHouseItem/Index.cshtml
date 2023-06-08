@@ -26,12 +26,12 @@
                 <br>
 
 
-            <button type="button" id="btnAddShopItem" class="btn btn-primary" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Add To Shopping List">Add To Shopping List</button>
+            <button type="button" id="btnAddShopItem" class="btn btn-primary" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="AddToShoppingList">Add To Shopping List</button>
             <br>
             @if (Context.User.IsInRole("Admin"))
             {
 
-                <button type="button" id="btnShowEditModal" class="btn btn-success" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Edit">Edit</button>
+                <button type="button" id="btnShowEditModal" class="btn btn-success" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="EditItem">Edit</button>
                 <br>
 
                 <button type="button" id="btnRemoveShopItem@(@samsWareHouseItem.SamsWareHouseItemId)" class="btn btn-danger" data-itemid="@samsWareHouseItem.SamsWareHouseItemId" value="Remove">Remove</button>

@@ -2,7 +2,7 @@
 @{
     double Total = 0;
 }
-    <table class="table">
+    <table class="table" id="theTablePartial">
         <thead>
             <tr>
 
@@ -26,7 +26,7 @@
             </tr>
         </thead>
 
-        <tbody>
+        <tbody id="tableBodyContainer">
         @foreach (var item in Model)
         {
             double subTotal = 0;
@@ -54,7 +54,7 @@
 
                 <td class="d-flex justify-content-around">
                     
-                    <input type="button" class="btn btn-danger align-content-end" value="Remove" />
+                    <button type="button" id="btnRemoveItemFromList@(@item.SamsWareHouseItemId)" class="btn btn-outline-danger align-content-end" data-itemid="@item.SamsWareHouseItemId" value="Remove">Remove</button>
                     
                 </td>
             </tr>

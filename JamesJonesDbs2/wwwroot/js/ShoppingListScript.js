@@ -2,16 +2,55 @@
 * Instanciates event listeners upon page load
 */
 window.addEventListener("load", async (e) => {
+
+    console.log("This Happend: ")
+    //refreshes the DDL
     updateDDL()
+
+    //Carries submitted form into the controller
     document.getElementById("createListForm").addEventListener('submit', async (e) => {
         await handleCreateList(e);
-    })
-    //Spawns the create List modal (WORKS)
-    document.getElementById('btnShowAddListModal').addEventListener('click', async (e) => {
-        await ShowCreateListModdal(e)
     });
 
+    //Spawns the Create List Modal
+    document.getElementById("btnAddNewListModal").addEventListener('click', (e) => {
+        console.log("Spawn Create Modal Fired");
+        $('#createListModal').modal('show')
+    });
+
+    //Spawns the Create List Modal
+    document.getElementById("btnDeleteList").addEventListener('click', async (e) => {
+        console.log("Delete Attempt Fired");
+        deleteShoppingListConfirm(e);
+
+    });
+
+    //Adds Event Listeners to Remove Item button
+    ApplyRemoveItemListener();
+
 });
+
+
+async function ApplyRemoveItemListener() {
+    //get reference from the item container
+    let itemContainer = document.getElementById('tableBodyContainer');
+    
+    //find corresponding object
+    let DeleteItemButton = itemContainer.querySelectorAll('button[value="Remove"]');
+    let buttonArray = Array.from(DeleteItemButton);
+
+    console.log("We reached This far");
+
+    buttonArray.forEach((value, index) => {
+
+        value.addEventListener('click', (e) => {
+            console.log("Button Identified with value: " + value.dataset.itemid)
+            //deleteShoppingListConfirm(value.dataset.itemid);
+        })
+    });
+
+   
+}
 
 //Create a Shopping List modal - or call the modal basically
 async function ShowCreateListModal() {
@@ -55,7 +94,7 @@ async function updateDDL() {
     let ddl = ddlContainer.querySelector('select');
     ddl.addEventListener('change', async (e) => {
         handleDDLChange(e);
-    })
+    });
 
 }
 
@@ -83,6 +122,14 @@ async function handleCreateList(e) {
 
     //get list name
     console.log(e.target["listName"].value);
+
+    //null check
+    let nullOrWhiteSpaceChecked = e.target["listName"].value;
+    let listName = nullOrWhiteSpaceChecked.trim();
+    //null indicate
+    if (listName.length <= 4 && listName.length < 32 || listName == "") {
+        return alert("Please Dont Leave the List name empty.")
+    }
 
     //call controller and send the JSON object
     let result = await fetch('/ShoppingList/AddNewShoppingList', {
@@ -184,3 +231,4 @@ async function deleteShoppingListConfirm() {
     location.reload();
 
 }
+
